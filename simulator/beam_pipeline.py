@@ -13,7 +13,9 @@ def run_pipeline(number_of_events=20):
         create_event() for _ in range(number_of_events)
     ]
 
-    with beam.Pipeline() as pipeline:
+    with beam.Pipeline(
+        runner="BundleBasedDirectRunner"
+    ) as pipeline:
         (
             pipeline
             | "Create viewer events" >> beam.Create(sample_events)
